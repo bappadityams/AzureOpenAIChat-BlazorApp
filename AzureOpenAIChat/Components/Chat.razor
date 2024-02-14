@@ -1,0 +1,77 @@
+﻿@using AzureOpenAIChat.Services
+@using AzureOpenAIChat.Data
+
+@inject ChatService ChatService
+
+<div id="scrollbox">
+    @foreach (var item in _messages)
+    {
+        if (item.IsRequest)
+        {
+            <div class="sent p-2 m-0 position-relative d-flex justify-content-end">
+                <p class="">@item.Body</p>
+            </div>
+        }
+        else
+        {
+            <div class="received p-2 m-0 position-relative d-flex justify-content-start">
+                <p class="">@item.Body</p>
+            </div>
+        }
+    }
+</div>
+
+<hr />
+<button class="btn btn-primary" @onclick="@ClearChat">Clear Chat</button>
+
+
+<hr />
+<textarea id="chattextarea" style="width: 500px; height: 80px;" @bind="@chatinput.Text" @oninput="@((ChangeEventArgs e) => updateTextArea(e))" />
+<hr />
+
+<button class="btn btn-primary" @onclick="@SubmitChat">Submit Chat</button>
+
+@code {
+
+    private ChatInput chatinput = new();
+    private List<Message> _messages = new();
+
+    private async Task ClearChat()
+    {
+        _messages = new List<Message>();
+    }
+
+    private async Task SubmitChat()
+    {
+        Message tosend = new Message(chatinput.Text, true);
+        _messages.Add(tosend);
+  
+
+        Message response = await ChatService.GetResponse(_messages);
+        _messages.Add(response);
+  
+
+        chatinput.Text = "";
+    }
+
+
+
+    private void updateTextArea(ChangeEventArgs e)
+    {
+        chatinput.Text = e.Value!.ToString()!;
+    }
+
+ 
+    public class ChatInput
+    {
+        public ChatInput()
+        {
+            Text = "";
+        }
+        public string Text { get; set; }
+    }
+
+}
+
+
+
