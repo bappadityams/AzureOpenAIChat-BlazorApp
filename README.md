@@ -16,7 +16,7 @@ You have two different options available to you on how you can further configure
 
 ### Index file content and metadata by using Azure AI Search
 
-Follow the instrution(https://learn.microsoft.com/en-us/azure/search/search-security-trimming-for-azure-search) to create group_id field in AI Search index.
+Follow the [instrution](https://learn.microsoft.com/en-us/azure/search/search-security-trimming-for-azure-search) to create group_id field in AI Search index.
 
 
 
