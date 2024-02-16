@@ -2,6 +2,8 @@
 
 This sample address a scenario where a customer wishes to implement authentication and authorization for their generative AI applications. 
 
+<img src=rag-aoai-arch.png"/>
+
 ### Setting up Azure AD Apps
 Azure AD app must be registered in order to make the optional login and document level access control system work correctly.
 
